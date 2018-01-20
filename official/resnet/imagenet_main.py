@@ -171,9 +171,10 @@ class ImagenetModel(Model):
     try:
       return choices[self.resnet_size]
     except KeyError:
-      raise ValueError('Could not find layers for selected Resnet size. '
-        'Size received: {} .'.format(self.resnet_size)
-        'Sizes allowed: {}'.format(choices.keys()))
+      err = ('Could not find layers for selected Resnet size.\n'
+          'Size received: {}; sizes allowed: {}.'.format(
+          self.resnet_size, choices.keys()))
+      raise ValueError(err)
 
   def _get_stride_sizes(self):
     return [2, 2, 1, 2, 2, 2]
