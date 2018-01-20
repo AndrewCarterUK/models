@@ -50,7 +50,7 @@ class BaseTest(tf.test.TestCase):
           resnet_size,
           data_format='channels_first' if with_gpu else 'channels_last')
       inputs = tf.random_uniform([1, 224, 224, 3])
-      output = model(inputs, is_training=True)
+      output = model(inputs, training=True)
 
       initial_conv = graph.get_tensor_by_name('initial_conv:0')
       max_pool = graph.get_tensor_by_name('initial_max_pool:0')
