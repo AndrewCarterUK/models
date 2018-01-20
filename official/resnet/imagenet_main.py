@@ -137,6 +137,9 @@ def input_fn(is_training, data_dir, batch_size, num_epochs=1):
 # Running the model
 ################################################################################
 class ImagenetModel(resnet_model.Model):
+  # >= this value of resnet_size, use more layers and bottleneck blocks.
+  size_threshold = 50
+
   def get_model_params(self):
     """These are the parameters that work for Imagenet data.
     """
@@ -153,7 +156,7 @@ class ImagenetModel(resnet_model.Model):
     )
 
   def _get_block_fn(self):
-    if self.resnet_size < 50:
+    if self.resnet_size < self.size_threshold:
       return resnet_model.building_block
     else:
       return resnet_model.bottleneck_block
@@ -180,7 +183,7 @@ class ImagenetModel(resnet_model.Model):
     return [2, 2, 1, 2, 2, 2, 1]
 
   def _get_final_size(self):
-    if self.resnet_size < 50:
+    if self.resnet_size < self.size_threshold:
       return 512
     else:
       return 2048
