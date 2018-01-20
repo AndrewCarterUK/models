@@ -177,7 +177,7 @@ class ImagenetModel(resnet_model.Model):
       raise ValueError(err)
 
   def _get_stride_sizes(self):
-    return [2, 2, 1, 2, 2, 2]
+    return [2, 2, 1, 2, 2, 2, 1]
 
   def _get_final_size(self):
     if self.resnet_size < 50:
