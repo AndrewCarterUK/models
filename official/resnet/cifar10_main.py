@@ -34,16 +34,20 @@ _DEFAULT_IMAGE_SIZE = _HEIGHT * _WIDTH * _NUM_CHANNELS
 _NUM_CLASSES = 10
 _NUM_DATA_FILES = 5
 
-# We use a weight decay of 0.0002, which performs better than the 0.0001 that
-# was originally suggested.
-_WEIGHT_DECAY = 2e-4
-_MOMENTUM = 0.9
-
 _NUM_IMAGES = {
     'train': 50000,
     'validation': 10000,
 }
 
+TRAIN_PARAMS = dict(
+    batch_denom=128,
+    epochs=[100, 150, 200],
+    learning_rates=[1, 0.1, 0.01, 1e-3],
+    # We use a weight decay of 0.0002, which performs better than the 0.0001 that
+    # was originally suggested.
+    weight_decay=2e-4,
+    train_images=_NUM_IMAGES['train'],
+    momentum=0.9)
 
 ################################################################################
 # Data processing
@@ -189,15 +193,7 @@ def cifar10_model_fn(features, labels, mode, params):
   """Model function for CIFAR-10."""
   features = tf.reshape(features, [-1, _HEIGHT, _WIDTH, _NUM_CHANNELS])
 
-  train_params = dict(
-      batch_denom=128,
-      epochs=[100, 150, 200],
-      learning_rates=[1, 0.1, 0.01, 1e-3],
-      weight_decay=_WEIGHT_DECAY,
-      train_images=_NUM_IMAGES['train'],
-      momentum=_MOMENTUM)
-
-  params.update(train_params)
+  params.update(TRAIN_PARAMS)
 
   return resnet_shared.resnet_model_fn(features, labels, mode, params,
                                        Cifar10Model)

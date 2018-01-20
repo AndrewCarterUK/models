@@ -127,9 +127,8 @@ def resnet_main(flags, model_function, input_function):
         hooks=[logging_hook])
 
     # Evaluate the model and print results
-    eval_results = cifar_classifier.evaluate(
-        input_fn=lambda: input_function(
-          False, flags.data_dir, flags.batch_size))
+    eval_results = classifier.evaluate(input_fn=lambda: input_function(
+        False, flags.data_dir, flags.batch_size))
     print(eval_results)
 
 
