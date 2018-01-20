@@ -141,7 +141,7 @@ class BaseTest(tf.test.TestCase):
     tf.train.create_global_step()
 
     features, labels = self.input_fn()
-    spec = imagenet_main.resnet_model_fn(
+    spec = imagenet_main.imagenet_model_fn(
         features, labels, mode, {
             'resnet_size': 50,
             'data_format': 'channels_last',
