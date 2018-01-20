@@ -136,7 +136,7 @@ def input_fn(is_training, data_dir, batch_size, num_epochs=1):
 ################################################################################
 # Running the model
 ################################################################################
-class ImagenetModel(Model):
+class ImagenetModel(resnet_model.Model):
   def get_model_params(self):
     """These are the parameters that work for Imagenet data.
     """
