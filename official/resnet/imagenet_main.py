@@ -114,7 +114,7 @@ def input_fn(is_training, data_dir, batch_size, num_epochs=1):
     dataset = dataset.shuffle(buffer_size=_FILE_SHUFFLE_BUFFER)
 
   dataset = dataset.flat_map(tf.data.TFRecordDataset)
-  dataset = dataset.map(lambda value: record_parser(value, is_training),
+  dataset = dataset.map(lambda value: parse_record(value, is_training),
                         num_parallel_calls=5)
   dataset = dataset.prefetch(batch_size)
 
